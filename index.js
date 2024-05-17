@@ -8,6 +8,7 @@ const app = express();
 //   res.send("Sitio en mantenimiento");
 // });
 
+const fs = require("fs");
 const path = require("path");
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -18,6 +19,13 @@ app.get("/", (req, res) => {
 
 app.get("/contacto", (req, res) => {
   res.send("Pagina de contacto");
+});
+
+app.get("/frutas/all", (req, res) => {
+  const frutas = fs.readFileSync(path.join(__dirname, "frutas.json"), "utf-8");
+
+  // const frutas = [{ id: 1, nombre: "Manzana" }];
+  res.send(frutas);
 });
 
 app.get("*", (req, res) => {
